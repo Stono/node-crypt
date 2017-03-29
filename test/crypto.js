@@ -22,7 +22,7 @@ describe('Crypto', () => {
   it('should encrypt and decrypt text', () => {
     const value = 'hide me';
     const encrypted = crypto.encrypt(value);
-    should(value).not.eql(encrypted);
+    should(encrypted).eql('fdca68b62fbe91');
     const decrypted = crypto.decrypt(encrypted);
     should(decrypted).eql(value);
   });
