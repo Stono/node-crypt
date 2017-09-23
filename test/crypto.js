@@ -3,37 +3,36 @@ const Crypto = require('../');
 const should = require('should');
 
 describe('Crypto', () => {
-  let crypto;
+  let crypto1, crypto2;
   before(() => {
-    crypto = new Crypto({
-      key: 'secretkey'
-    });
+    // require('crypto').randomBytes(32).toString('hex');
+    const options = {
+      key: 'b95d8cb128734ff8821ea634dc34334535afe438524a782152d11a5248e71b01',
+      hmacKey: 'dcf8cd2a90b1856c74a9f914abbb5f467c38252b611b138d8eedbe2abb4434fc'
+    };
+    crypto1 = new Crypto(options);
+    crypto2 = new Crypto(options);
   });
 
   it('shouldnt be able to decrypt with another password', () => {
     const value = 'hide me';
-    const encrypted = crypto.encrypt(value);
+    const encrypted = crypto1.encrypt(value);
+    const options = {
+      key: Buffer.from('a95d8cb128734ff8821ea634dc34334535afe438524a782152d11a5248e71b01', 'hex'),
+      hmacKey: Buffer.from('acf8cd2a90b1856c74a9f914abbb5f467c38252b611b138d8eedbe2abb4434fc', 'hex')
+    };
+    const anotherCrypto = new Crypto(options);
 
-    const crypto2 = new Crypto({ key: 'anotherkey' });
-    const decrypted = crypto2.decrypt(encrypted);
-    should(decrypted).not.eql(value);
+    should(() => {
+      anotherCrypto.decrypt(encrypted);
+    }).throw(/tampered with/);
   });
 
   it('should encrypt and decrypt text', () => {
     const value = 'hide me';
-    const encrypted = crypto.encrypt(value);
-    should(encrypted).eql('fdca68b62fbe91');
-    const decrypted = crypto.decrypt(encrypted);
+    const encrypted = crypto1.encrypt(value);
+    const decrypted = crypto2.decrypt(encrypted);
     should(decrypted).eql(value);
-  });
-
-  it('should encrypt and decrypt buffers', () => {
-    const text = 'hide me';
-    const value = new Buffer(text, 'utf8');
-    const encrypted = crypto.encrypt(value);
-    should(value).not.eql(encrypted);
-    const decrypted = crypto.decrypt(encrypted);
-    should(decrypted.toString('utf8')).eql(text);
   });
 
 });
