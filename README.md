@@ -22,7 +22,7 @@ const encryptedValue = crypto.encrypt(unencryptedValue);
 
 // Decrypt it
 const decryptedValue = crypto.decrypt(encryptedValue);
-should('your secret value').eql(unencryptedValue);
+should(decryptedValue).eql(unencryptedValue);
 ```
 
 *TIP*: You can create some keys using the nodejs crypto library: `require('crypto').randomBytes(32).toString('hex');`
