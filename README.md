@@ -13,7 +13,7 @@ Using the module is pretty simple.  Create an instance of the crypto class with 
 
 *TIP*: You can create some keys using the nodejs crypto library: `require('crypto').randomBytes(32).toString('hex');`
 
-```
+```javascript
 const Crypto = require('node-crypt');
 const crypto = new Crypto({
   key: 'b95d8cb128734ff8821ea634dc34334535afe438524a782152d11a5248e71b01',
@@ -31,7 +31,7 @@ const decryptedValue = crypto.decrypt(encryptedValue);
 should(decryptedValue).eql(unencryptedValue);
 ```
 
-### Proof in the Pudding
+### Proof in the Pudding
 As you can see here; encrypting the same string each time produces an entirely different value:
 
 ```
