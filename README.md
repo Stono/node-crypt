@@ -31,6 +31,26 @@ const decryptedValue = crypto.decrypt(encryptedValue);
 should(decryptedValue).eql(unencryptedValue);
 ```
 
+You can also encrypt binary data using buffers:
+```
+const Crypto = require('node-crypt');
+const crypto = new Crypto({
+  key: 'b95d8cb128734ff8821ea634dc34334535afe438524a782152d11a5248e71b01',
+  hmacKey: 'dcf8cd2a90b1856c74a9f914abbb5f467c38252b611b138d8eedbe2abb4434fc'
+});
+
+// Have some data you want to protect
+const unencryptedValue = Buffer.from([0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f], 'binary');
+
+// Encrypt it
+const encryptedValue = crypto.encryptBuffer(unencryptedValue);
+
+// Decrypt it
+const decryptedValue = crypto.decryptBuffer(encryptedValue);
+should(decryptedValue).eql(unencryptedValue);
+```
+
+
 ### Proof in the Pudding
 As you can see here; encrypting the same string each time produces an entirely different value:
 
