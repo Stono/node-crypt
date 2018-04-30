@@ -80,6 +80,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
  - 0.1.2 Tidyup
  - 1.0.0 Major changes, totally not backwards compatible in any way.  HMAC and IV.
  - 1.0.1 README updated
+ - 1.1.0 Added support for buffers
 
 ## License
 Copyright (c) 2017 Karl Stoney
